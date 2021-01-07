@@ -1,5 +1,5 @@
 <template>
-  <section class="mt-6">
+  <section class="mt-10 py-6 shadow-sm rounded-md">
     <chart-container-md>
       <apexchart
         type="area"

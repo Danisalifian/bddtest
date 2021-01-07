@@ -105,6 +105,9 @@ export default {
           },
           width: "100%",
         },
+        tooltip: {
+          enabled: false,
+        },
         colors: ["#546E7A"],
         grid: {
           show: false,
@@ -161,6 +164,9 @@ export default {
           },
           width: "100%",
         },
+        tooltip: {
+          enabled: false,
+        },
         colors: ["#EF4444"],
         grid: {
           show: false,
@@ -216,6 +222,9 @@ export default {
             show: false,
           },
           width: "100%",
+        },
+        tooltip: {
+          enabled: false,
         },
         grid: {
           show: false,
