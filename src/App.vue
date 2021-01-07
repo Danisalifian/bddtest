@@ -3,7 +3,8 @@
     <sidenav />
     <div class="w-screen">
       <navbar />
-      <dashboard />
+      <!-- <dashboard /> -->
+      <router-view></router-view>
     </div>
   </div>
 </template>
@@ -11,13 +12,13 @@
 <script>
 import Navbar from "./components/Navbar.vue";
 import Sidenav from "./components/Sidenav.vue";
-import Dashboard from "./pages/Dashboard.vue";
+// import Dashboard from "./pages/Dashboard.vue";
 
 export default {
   components: {
     Navbar,
     Sidenav,
-    Dashboard,
+    // Dashboard,
   },
 };
 </script>

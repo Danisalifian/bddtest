@@ -1,0 +1,7 @@
+.-scale-x-rotate-1 {
+  transform: scaleX(-1) rotate(45deg);
+}
+.m-text-white {
+  --tw-text-opacity: 1 !important;
+  color: rgba(255, 255, 255, var(--tw-text-opacity)) !important;
+}
