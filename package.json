@@ -7,6 +7,7 @@
     "build": "vue-cli-service build"
   },
   "dependencies": {
+    "@iconscout/vue-unicons": "0.0.3",
     "core-js": "^3.6.5",
     "polished": "^4.0.5",
     "styled-components": "^5.2.1",
