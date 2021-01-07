@@ -4,7 +4,7 @@
       <div>
         <card-sales class="shadow-xl">
           <div class="flex">
-            <div class="text-gray-800 text-sm font-medium">
+            <div class="text-gray-400 text-sm font-medium">
               Sales 60 Paid Order
             </div>
           </div>
@@ -27,9 +27,9 @@
         <card-sales class="shadow-xl">
           <div class="flex">
             <UilRedo
-              class="text-lg text-gray-800 font-bold -scale-x-rotate-1 self-center mr-1"
+              class="text-lg text-gray-400 font-bold -scale-x-rotate-1 self-center mr-1"
             />
-            <div class="text-gray-800 text-sm font-medium">
+            <div class="text-gray-400 text-sm font-medium">
               Cancel <span class="text-red-500">3 Orders</span>
             </div>
           </div>
