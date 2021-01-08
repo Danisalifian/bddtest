@@ -50,7 +50,7 @@ export default {
       this.isExact = true;
     });
     this.getYearEndSingle();
-    this.ClientData();
+    this.filterByDate();
   },
   watch: {
     range: function() {
