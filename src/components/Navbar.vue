@@ -82,6 +82,7 @@
 <script>
 import { UilCaretRight } from "@iconscout/vue-unicons";
 import { UilCalender } from "@iconscout/vue-unicons";
+import { mapActions } from "vuex";
 import moment from "moment";
 
 export default {
@@ -98,8 +99,16 @@ export default {
     };
   },
   methods: {
+    ...mapActions({
+      setDateRange: "clients/setDateRange",
+    }),
     formatDate(date) {
       return moment(date).format("ddd DD MMM YYYY");
+    },
+  },
+  watch: {
+    range: function() {
+      this.setDateRange(this.range);
     },
   },
 };

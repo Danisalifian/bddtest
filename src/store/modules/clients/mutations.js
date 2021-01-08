@@ -8,6 +8,12 @@ const mutations = {
   setSalesOverview(state, salesOverview) {
     state.salesOverview = salesOverview;
   },
+  setDateRange(state, range) {
+    state.range = range;
+  },
+  setFilteredByDate(state, filtered) {
+    state.filtered = filtered;
+  },
 };
 
 export default mutations;

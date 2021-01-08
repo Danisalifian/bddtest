@@ -12,6 +12,9 @@ const actions = {
   getSalesOverview({ commit }) {
     commit("setSalesOverview", salesOverview);
   },
+  setDateRange({ commit }, range) {
+    commit("setDateRange", range);
+  },
 };
 
 export default actions;
