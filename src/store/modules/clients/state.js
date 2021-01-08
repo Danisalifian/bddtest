@@ -1,3 +1,5 @@
+const moment = require("moment");
+
 function getLastWeek() {
   let today = new Date();
   let lastWeek = new Date(
@@ -13,8 +15,12 @@ const state = {
   yearEndSingle: null,
   salesOverview: null,
   range: {
-    start: getLastWeek(),
-    end: new Date(),
+    start: moment(getLastWeek())
+      .format("DD MMM YYYY")
+      .toString(),
+    end: moment(new Date())
+      .format("DD MMM YYYY")
+      .toString(),
   },
   filtered: null,
 };
