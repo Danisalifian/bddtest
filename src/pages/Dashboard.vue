@@ -25,13 +25,11 @@ export default {
     ...mapActions({
       getYearEnd: "clients/getYearEnd",
       getYearEndSingle: "clients/getYearEndSingle",
-      getSalesOverview: "clients/getSalesOverview",
     }),
   },
   mounted() {
     this.getYearEnd();
     this.getYearEndSingle();
-    this.getSalesOverview();
   },
 };
 </script>

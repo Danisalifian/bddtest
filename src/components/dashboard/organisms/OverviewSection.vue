@@ -1,5 +1,5 @@
 <template>
-  <section>
+  <section v-if="isExact">
     <div class="grid grid-cols-3 gap-4">
       <div>
         <card-sales class="shadow-xl">
@@ -9,11 +9,11 @@
               class="w-4 h-4 self-center mr-1"
             />
             <div class="text-gray-400 text-sm font-medium">
-              Sales 60 Paid Order
+              Sales {{ orderPaid }} Paid Order
             </div>
           </div>
           <div class="font-semibold text-2xl my-2">
-            Rp. 29.100.134
+            Rp. {{ formatCurrency(todaySales) }}
           </div>
           <chart-container>
             <apexchart
@@ -34,11 +34,11 @@
               class="text-lg text-gray-400 font-bold -scale-x-rotate-1 self-center mr-1"
             />
             <div class="text-gray-400 text-sm font-medium">
-              Cancel <span class="text-red-500">3 Orders</span>
+              Cancel <span class="text-red-500">{{ orderCancel }} Orders</span>
             </div>
           </div>
           <div class="font-semibold text-2xl my-2 ">
-            Rp. 2.721.000
+            Rp. {{ formatCurrency(totalCancel) }}
           </div>
           <chart-container>
             <apexchart
@@ -59,11 +59,12 @@
               class="text-lg text-gray-400 font-bold self-center mr-1"
             />
             <div class="text-gray-400 text-sm font-medium">
-              Pending <span class="text-yellow-500">5 Orders</span>
+              Pending
+              <span class="text-yellow-500">{{ orderPending }} Orders</span>
             </div>
           </div>
           <div class="font-semibold text-2xl my-2">
-            Rp. 1.306.000
+            Rp. {{ formatCurrency(totalPending) }}
           </div>
           <chart-container>
             <apexchart
@@ -85,6 +86,7 @@
 import { CardSales, ChartContainer } from "./styledComponents";
 import { UilRedo } from "@iconscout/vue-unicons";
 import { UilShoppingCart } from "@iconscout/vue-unicons";
+import { mapGetters, mapActions } from "vuex";
 
 export default {
   components: {
@@ -95,6 +97,7 @@ export default {
   },
   data() {
     return {
+      isExact: false,
       series: [
         {
           name: "series 1",
@@ -279,6 +282,49 @@ export default {
         },
       },
     };
+  },
+  computed: {
+    ...mapGetters({
+      salesOverview: "clients/salesOverview",
+    }),
+
+    orderPaid() {
+      return this.salesOverview.data.order_paid;
+    },
+    orderCancel() {
+      return this.salesOverview.data.order_cancel;
+    },
+    orderPending() {
+      return this.salesOverview.data.order_pending;
+    },
+    totalPending() {
+      return this.salesOverview.data.total_pending;
+    },
+    totalCancel() {
+      return this.salesOverview.data.total_cancel;
+    },
+    totalShipping() {
+      return this.salesOverview.data.total_shipping;
+    },
+    todaySales() {
+      return this.salesOverview.data.today_sales;
+    },
+  },
+  methods: {
+    ...mapActions({
+      getSalesOverview: "clients/getSalesOverview",
+    }),
+    formatCurrency(val) {
+      return val
+        .toString()
+        .replace(/-/g, "")
+        .replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+    },
+  },
+  mounted() {
+    this.getSalesOverview().then(() => {
+      this.isExact = true;
+    });
   },
 };
 </script>
