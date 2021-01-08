@@ -15,8 +15,44 @@
               <UilCalender size="14px" class="text-gray-400" />
             </div>
             <div class="self-center text-sm">
-              From <span class="font-medium">sat 13 Mar 2020</span> to
-              <span class="font-medium">sat 20 Mar 2020</span>
+              <!-- From <span class="font-medium">sat 13 Mar 2020</span> to
+              <span class="font-medium">sat 20 Mar 2020</span> -->
+              <v-date-picker v-model="range" mode="dateTime" is-range>
+                <template v-slot="{ inputValue, inputEvents, isDragging }">
+                  <div
+                    class="flex flex-col sm:flex-row justify-start items-center"
+                  >
+                    <div class="relative text-sm">
+                      <div
+                        :class="
+                          isDragging
+                            ? 'text-gray-600 mr-1'
+                            : 'text-gray-900 mr-1'
+                        "
+                        :value="inputValue.start"
+                        v-on="inputEvents.start"
+                      >
+                        From
+                        <span class="font-medium">{{
+                          formatDate(range.start)
+                        }}</span>
+                      </div>
+                    </div>
+                    <div class="relative text-sm">
+                      <div
+                        :class="isDragging ? 'text-gray-600' : 'text-gray-900'"
+                        :value="inputValue.end"
+                        v-on="inputEvents.end"
+                      >
+                        To
+                        <span class="font-medium">{{
+                          formatDate(range.end)
+                        }}</span>
+                      </div>
+                    </div>
+                  </div>
+                </template>
+              </v-date-picker>
             </div>
           </div>
         </div>
@@ -46,11 +82,25 @@
 <script>
 import { UilCaretRight } from "@iconscout/vue-unicons";
 import { UilCalender } from "@iconscout/vue-unicons";
+import moment from "moment";
 
 export default {
   components: {
     UilCaretRight,
     UilCalender,
+  },
+  data() {
+    return {
+      range: {
+        start: new Date(),
+        end: new Date(),
+      },
+    };
+  },
+  methods: {
+    formatDate(date) {
+      return moment(date).format("ddd DD MMM YYYY");
+    },
   },
 };
 </script>

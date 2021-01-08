@@ -4,6 +4,10 @@
       <div>
         <card-sales class="shadow-xl">
           <div class="flex">
+            <img
+              src="../../../assets/img/rp-currency.svg"
+              class="w-4 h-4 self-center mr-1"
+            />
             <div class="text-gray-400 text-sm font-medium">
               Sales 60 Paid Order
             </div>
