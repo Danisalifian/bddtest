@@ -1,5 +1,5 @@
 <template>
-  <section class="px-4">
+  <section class="px-4" v-if="isExact">
     <div class="shadow-lg border border-gray-100 rounded-md px-5">
       <div class="mt-3 text-sm font-semibold">
         Summary Report
@@ -125,7 +125,9 @@
       </div>
     </div>
 
-    <div class="mt-6 shadow-lg border border-gray-100 rounded-md px-5 py-3">
+    <div
+      class="mt-6 shadow-lg border border-gray-100 rounded-md px-5 py-3 relative"
+    >
       <div class="relative flex justify-center self-center">
         <apexchart
           type="donut"
@@ -136,21 +138,21 @@
           Budget Chart
         </div>
       </div>
-      <div class="flex mt-6">
-        <div class="flex mx-2">
-          <div class="w-3 h-3 rounded-sm bg-blue-500 self-center mr-2"></div>
+      <div class="flex mt-6 flex-wrap">
+        <div class="flex mx-2 mt-1">
+          <div class="w-3 h-3 rounded-sm bg-blue-500 self-center mr-1"></div>
           <div class="text-xs font-medium">
             Awareness
           </div>
         </div>
-        <div class="flex mx-2">
-          <div class="w-3 h-3 rounded-sm bg-yellow-500 self-center mr-2"></div>
+        <div class="flex mx-2 mt-1">
+          <div class="w-3 h-3 rounded-sm bg-yellow-500 self-center mr-1"></div>
           <div class="text-xs font-medium">
             Traffics
           </div>
         </div>
-        <div class="flex mx-2">
-          <div class="w-3 h-3 rounded-sm bg-yellow-600 self-center mr-2"></div>
+        <div class="flex mx-2 mt-1">
+          <div class="w-3 h-3 rounded-sm bg-yellow-600 self-center mr-1"></div>
           <div class="text-xs font-medium">
             Conversions
           </div>
@@ -172,8 +174,10 @@ export default {
   },
   data() {
     return {
-      series: [44, 55, 41],
+      series: [],
+
       chartOptions: {
+        labels: ["Awareness", "Traffics", "Conversions"],
         chart: {
           type: "donut",
         },
@@ -206,10 +210,16 @@ export default {
   computed: {
     ...mapGetters({
       salesOverview: "clients/salesOverview",
+      budget: "clients/budget",
     }),
-
+    budgetData() {
+      return this.budget.data;
+    },
     salesData() {
       return this.salesOverview.data;
+    },
+    isExact() {
+      return this.salesOverview;
     },
   },
   methods: {
@@ -219,6 +229,16 @@ export default {
         .replace(/-/g, "")
         .replace(/\B(?=(\d{3})+(?!\d))/g, ".");
     },
+    populateData() {
+      this.series = [
+        this.budgetData.awareness,
+        this.budgetData.conversions,
+        this.budgetData.traffics,
+      ];
+    },
+  },
+  mounted() {
+    this.populateData();
   },
 };
 </script>

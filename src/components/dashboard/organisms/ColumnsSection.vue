@@ -1,5 +1,5 @@
 <template>
-  <section class="mt-10 py-6 shadow-sm rounded-md">
+  <section class="mt-10 py-6 shadow-sm rounded-md" v-if="isExact">
     <div class="flex mb-6">
       <div class="flex mx-2">
         <div class="w-3 h-3 rounded-sm bg-blue-500 self-center mr-2"></div>
@@ -29,6 +29,7 @@
 <script>
 import { ChartContainerMd } from "./styledComponents";
 import { mapGetters } from "vuex";
+import moment from "moment";
 
 export default {
   components: {
@@ -36,16 +37,7 @@ export default {
   },
   data() {
     return {
-      series: [
-        {
-          name: "A",
-          data: [44, 55, 57, 56, 61, 58, 63, 60, 66],
-        },
-        {
-          name: "B",
-          data: [76, 85, 101, 98, 87, 105, 91, 114, 94],
-        },
-      ],
+      series: [],
       chartOptions: {
         chart: {
           type: "bar",
@@ -71,17 +63,14 @@ export default {
           colors: ["transparent"],
         },
         xaxis: {
-          categories: [
-            "Feb",
-            "Mar",
-            "Apr",
-            "May",
-            "Jun",
-            "Jul",
-            "Aug",
-            "Sep",
-            "Oct",
-          ],
+          categories: [],
+          labels: {
+            style: {
+              fontSize: "12px",
+              fontFamily: "Poppins, sans-serif",
+              fontWeight: 600,
+            },
+          },
         },
         yaxis: {
           show: false,
@@ -94,6 +83,80 @@ export default {
         },
       },
     };
+  },
+  computed: {
+    ...mapGetters({
+      visitors: "clients/visitors",
+      range: "clients/range",
+      filteredVisitor: "clients/filteredVisitor",
+    }),
+    isExact() {
+      return this.filteredVisitor;
+    },
+  },
+  methods: {
+    populateData() {
+      this.series = this.filteredVisitor.map((items) => {
+        let obj = {
+          name: items.visitor_type,
+          data: items.data.map((item) => {
+            return item.value;
+          }),
+        };
+        return obj;
+      });
+    },
+    populateXdata() {
+      let Xlabel = this.filteredVisitor.map((items) => {
+        let timeX = [];
+        items.data.map((item) => {
+          return timeX.push(
+            moment(item.dateTime)
+              .format("DD MMM")
+              .toString()
+          );
+        });
+        return timeX;
+      });
+
+      this.chartOptions = {
+        ...this.chartOptions,
+        ...{
+          xaxis: {
+            categories: Xlabel[0],
+          },
+        },
+      };
+    },
+    getOneWeekDate() {
+      let today = Date.now();
+      let days = 7;
+      let dates = [];
+      for (let i = 0; i < days; i++) {
+        let date = moment(
+          new Date(today - i * 1000 * 60 * 60 * 24).toDateString()
+        ).format("DD MMM");
+        dates.push(date);
+      }
+      this.chartOptions = {
+        ...this.chartOptions,
+        ...{
+          xaxis: {
+            categories: dates.reverse(),
+          },
+        },
+      };
+    },
+  },
+  mounted() {
+    this.getOneWeekDate();
+    this.populateData();
+  },
+  watch: {
+    range() {
+      this.populateData();
+      this.populateXdata();
+    },
   },
 };
 </script>

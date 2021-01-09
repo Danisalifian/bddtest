@@ -1,5 +1,5 @@
 <template>
-  <section class="px-4">
+  <section class="px-6">
     <div class="text-lg font-bold">
       Report pages
     </div>

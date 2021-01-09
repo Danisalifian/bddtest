@@ -14,6 +14,15 @@ const getters = {
   filtered(state) {
     return state.filtered;
   },
+  budget(state) {
+    return state.budget;
+  },
+  visitors(state) {
+    return state.visitors;
+  },
+  filteredVisitor(state) {
+    return state.filteredVisitor;
+  },
 };
 
 export default getters;

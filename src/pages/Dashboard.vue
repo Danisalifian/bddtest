@@ -32,6 +32,9 @@ export default {
       getYearEnd: "clients/getYearEnd",
       getYearEndSingle: "clients/getYearEndSingle",
       filterByDate: "clients/filterByDate",
+      getBudget: "clients/getBudget",
+      getVisitors: "clients/getVisitors",
+      filterVisitorByDate: "clients/filterVisitorByDate",
     }),
   },
   computed: {
@@ -51,10 +54,14 @@ export default {
     });
     this.getYearEndSingle();
     this.filterByDate();
+    this.getBudget();
+    this.getVisitors();
+    this.filterVisitorByDate();
   },
   watch: {
     range: function() {
       this.filterByDate();
+      this.filterVisitorByDate();
     },
   },
 };

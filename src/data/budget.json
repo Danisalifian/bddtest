@@ -1,0 +1,9 @@
+{
+  "response": "HTTP 200 OK",
+  "message": "Your request has been successfuly executed",
+  "data": {
+    "awareness": 1245,
+    "traffics": 2345,
+    "conversions": 1532
+  }
+}

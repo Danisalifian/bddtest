@@ -1,6 +1,8 @@
 import yearEnd from "../../../data/year-end.json";
 import yearEndSingle from "../../../data/year-end(single-client).json";
 import salesOverview from "../../../data/sales-overview.json";
+import budget from "../../../data/budget.json";
+import visitors from "../../../data/visitors.json";
 const moment = require("moment");
 
 function strToDate(val) {
@@ -50,6 +52,13 @@ const actions = {
     };
     commit("setDateRange", range);
   },
+  getBudget({ commit }) {
+    commit("setBudget", budget);
+  },
+  getVisitors({ commit }) {
+    commit("setVisitors", visitors);
+  },
+
   filterByDate({ state, commit }) {
     let dataArray = state.yearEnd.data.metric.clicks;
     let dataObj = {};
@@ -62,6 +71,19 @@ const actions = {
       filtered.push(dataObj);
     });
     commit("setFilteredByDate", filtered);
+  },
+  filterVisitorByDate({ state, commit }) {
+    let dataArray = state.visitors.data.data;
+    let dataObj = {};
+    let filteredVisitor = [];
+    dataArray.map((el) => {
+      dataObj = {
+        visitor_type: el.visitor_type,
+        data: filterData(el.data, state.range),
+      };
+      filteredVisitor.push(dataObj);
+    });
+    commit("setFilteredVisitorByDate", filteredVisitor);
   },
 };
 

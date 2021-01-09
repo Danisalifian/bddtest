@@ -23,6 +23,9 @@ const state = {
       .toString(),
   },
   filtered: null,
+  budget: null,
+  visitors: null,
+  filteredVisitor: null,
 };
 
 export default state;

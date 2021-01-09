@@ -14,6 +14,15 @@ const mutations = {
   setFilteredByDate(state, filtered) {
     state.filtered = filtered;
   },
+  setBudget(state, budget) {
+    state.budget = budget;
+  },
+  setVisitors(state, visitors) {
+    state.visitors = visitors;
+  },
+  setFilteredVisitorByDate(state, filteredVisitor) {
+    state.filteredVisitor = filteredVisitor;
+  },
 };
 
 export default mutations;

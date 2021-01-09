@@ -40,7 +40,7 @@ export default {
             shadeIntensity: 1,
             opacityFrom: 0,
             opacityTo: 0,
-            stops: [0, 90, 100],
+            // stops: [0, 90, 100],
             colorStops: [],
           },
         },
@@ -56,6 +56,14 @@ export default {
         xaxis: {
           type: "datetime",
           categories: [],
+          labels: {
+            offsetX: 10,
+            style: {
+              fontSize: "12px",
+              fontFamily: "Poppins, sans-serif",
+              fontWeight: 600,
+            },
+          },
         },
         tooltip: {
           x: {
