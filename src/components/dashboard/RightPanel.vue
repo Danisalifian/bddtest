@@ -10,7 +10,7 @@
             Total Sales
           </div>
           <div class="text-lg font-semibold text-gray-800 mt-1">
-            Rp 29.100.134
+            Rp {{ formatCurrency(salesData.today_sales) }}
           </div>
           <div class="flex mt-1">
             <div
@@ -28,7 +28,7 @@
             Paid Order
           </div>
           <div class="text-lg font-semibold text-gray-800 mt-1">
-            118
+            {{ salesData.order_paid }}
           </div>
           <div class="flex mt-1">
             <div
@@ -49,7 +49,7 @@
             Cancel Order
           </div>
           <div class="text-lg font-semibold text-gray-800 mt-1">
-            39
+            {{ salesData.order_cancel }}
           </div>
           <div class="flex mt-1">
             <div
@@ -70,7 +70,7 @@
             Pending Amount
           </div>
           <div class="text-lg font-semibold text-gray-800 mt-1">
-            Rp .9.755.000
+            Rp {{ formatCurrency(salesData.total_pending) }}
           </div>
           <div class="flex mt-1">
             <div
@@ -88,7 +88,7 @@
             Pending Order
           </div>
           <div class="text-lg font-semibold text-gray-800 mt-1">
-            34
+            {{ salesData.order_pending }}
           </div>
           <div class="flex mt-1">
             <div
@@ -105,7 +105,7 @@
               Shipping
             </div>
             <div class="text-lg font-semibold text-gray-800 mt-1">
-              Rp. 9.755.000
+              Rp. {{ formatCurrency(salesData.total_shipping) }}
             </div>
             <div class="flex mt-1">
               <div
@@ -163,6 +163,7 @@
 <script>
 import { UilArrowUpRight } from "@iconscout/vue-unicons";
 import { UilArrowDownRight } from "@iconscout/vue-unicons";
+import { mapGetters } from "vuex";
 
 export default {
   components: {
@@ -201,6 +202,23 @@ export default {
         ],
       },
     };
+  },
+  computed: {
+    ...mapGetters({
+      salesOverview: "clients/salesOverview",
+    }),
+
+    salesData() {
+      return this.salesOverview.data;
+    },
+  },
+  methods: {
+    formatCurrency(val) {
+      return val
+        .toString()
+        .replace(/-/g, "")
+        .replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+    },
   },
 };
 </script>
