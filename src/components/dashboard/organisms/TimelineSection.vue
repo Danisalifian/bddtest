@@ -98,6 +98,7 @@ export default {
         });
         return timeX;
       });
+
       this.chartOptions = {
         ...this.chartOptions,
         ...{
@@ -107,10 +108,29 @@ export default {
         },
       };
     },
+    getOneWeekDate() {
+      let today = Date.now();
+      let days = 7;
+      let dates = [];
+      for (let i = 0; i < days; i++) {
+        let date = moment(
+          new Date(today - i * 1000 * 60 * 60 * 24).toDateString()
+        ).format("DD MMM");
+        dates.push(date);
+      }
+      this.chartOptions = {
+        ...this.chartOptions,
+        ...{
+          xaxis: {
+            categories: dates,
+          },
+        },
+      };
+    },
   },
   mounted() {
+    this.getOneWeekDate();
     this.populateData();
-    this.populateXdata();
   },
   watch: {
     range: function() {

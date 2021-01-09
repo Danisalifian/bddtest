@@ -1,5 +1,19 @@
 <template>
   <section class="mt-10 py-6 shadow-sm rounded-md">
+    <div class="flex mb-6">
+      <div class="flex mx-2">
+        <div class="w-3 h-3 rounded-sm bg-blue-500 self-center mr-2"></div>
+        <div class="font-semibold">
+          New Visitor
+        </div>
+      </div>
+      <div class="flex mx-2">
+        <div class="w-3 h-3 rounded-sm bg-yellow-500 self-center mr-2"></div>
+        <div class="font-semibold">
+          Returning Visitor
+        </div>
+      </div>
+    </div>
     <chart-container-md>
       <apexchart
         type="bar"
@@ -14,6 +28,7 @@
 
 <script>
 import { ChartContainerMd } from "./styledComponents";
+import { mapGetters } from "vuex";
 
 export default {
   components: {
@@ -39,6 +54,7 @@ export default {
             show: false,
           },
         },
+        colors: ["#3B82F6", "#F59E0B"],
         plotOptions: {
           bar: {
             horizontal: false,

@@ -136,6 +136,26 @@
           Budget Chart
         </div>
       </div>
+      <div class="flex mt-6">
+        <div class="flex mx-2">
+          <div class="w-3 h-3 rounded-sm bg-blue-500 self-center mr-2"></div>
+          <div class="text-xs font-medium">
+            Awareness
+          </div>
+        </div>
+        <div class="flex mx-2">
+          <div class="w-3 h-3 rounded-sm bg-yellow-500 self-center mr-2"></div>
+          <div class="text-xs font-medium">
+            Traffics
+          </div>
+        </div>
+        <div class="flex mx-2">
+          <div class="w-3 h-3 rounded-sm bg-yellow-600 self-center mr-2"></div>
+          <div class="text-xs font-medium">
+            Conversions
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 </template>
@@ -151,11 +171,12 @@ export default {
   },
   data() {
     return {
-      series: [44, 55, 41, 17],
+      series: [44, 55, 41],
       chartOptions: {
         chart: {
           type: "donut",
         },
+        colors: ["#3B82F6", "#F59E0B", "#D97706"],
         legend: {
           show: false,
         },
