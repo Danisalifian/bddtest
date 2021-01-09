@@ -95,6 +95,7 @@ export default {
     },
   },
   methods: {
+    // Populate data series
     populateData() {
       this.series = this.filteredVisitor.map((items) => {
         let obj = {
@@ -106,6 +107,7 @@ export default {
         return obj;
       });
     },
+    // Populate xaxis label
     populateXdata() {
       let Xlabel = this.filteredVisitor.map((items) => {
         let timeX = [];
@@ -128,6 +130,7 @@ export default {
         },
       };
     },
+    // get weekly date to initiate xaxis labels
     getOneWeekDate() {
       let today = Date.now();
       let days = 7;

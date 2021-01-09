@@ -223,12 +223,14 @@ export default {
     },
   },
   methods: {
+    // format number currency
     formatCurrency(val) {
       return val
         .toString()
         .replace(/-/g, "")
         .replace(/\B(?=(\d{3})+(?!\d))/g, ".");
     },
+    // Populate data series
     populateData() {
       this.series = [
         this.budgetData.awareness,

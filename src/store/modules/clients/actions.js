@@ -5,10 +5,12 @@ import budget from "../../../data/budget.json";
 import visitors from "../../../data/visitors.json";
 const moment = require("moment");
 
+// Convert Date
 function strToDate(val) {
   return moment(val)._d;
 }
 
+// Transform & filter data by date range
 function filterData(dataArray, range) {
   let start = strToDate(range.start);
   let end = strToDate(range.end);

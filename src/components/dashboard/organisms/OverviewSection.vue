@@ -314,6 +314,7 @@ export default {
     ...mapActions({
       getSalesOverview: "clients/getSalesOverview",
     }),
+    // Format number currency
     formatCurrency(val) {
       return val
         .toString()
