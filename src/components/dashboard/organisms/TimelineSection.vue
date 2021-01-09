@@ -14,6 +14,8 @@
 
 <script>
 import { ChartContainerMd } from "./styledComponents";
+import { mapGetters } from "vuex";
+import moment from "moment";
 
 export default {
   components: {
@@ -21,22 +23,25 @@ export default {
   },
   data() {
     return {
-      series: [
-        {
-          name: "series1",
-          data: [31, 40, 28, 51, 42, 109, 100],
-        },
-        {
-          name: "series2",
-          data: [11, 32, 45, 32, 34, 52, 41],
-        },
-      ],
+      series: [],
       chartOptions: {
         chart: {
           height: 350,
           type: "area",
           toolbar: {
             show: false,
+          },
+        },
+        fill: {
+          type: "gradient",
+          gradient: {
+            shade: "light",
+            type: "vertical",
+            shadeIntensity: 1,
+            opacityFrom: 0,
+            opacityTo: 0,
+            stops: [0, 90, 100],
+            colorStops: [],
           },
         },
         dataLabels: {
@@ -50,15 +55,7 @@ export default {
         },
         xaxis: {
           type: "datetime",
-          categories: [
-            "2018-09-19T00:00:00.000Z",
-            "2018-09-19T01:30:00.000Z",
-            "2018-09-19T02:30:00.000Z",
-            "2018-09-19T03:30:00.000Z",
-            "2018-09-19T04:30:00.000Z",
-            "2018-09-19T05:30:00.000Z",
-            "2018-09-19T06:30:00.000Z",
-          ],
+          categories: [],
         },
         tooltip: {
           x: {
@@ -67,6 +64,59 @@ export default {
         },
       },
     };
+  },
+  computed: {
+    ...mapGetters({
+      filtered: "clients/filtered",
+      range: "clients/range",
+    }),
+    filterdData() {
+      return this.filtered;
+    },
+  },
+  methods: {
+    populateData() {
+      this.series = this.filterdData.map((items) => {
+        let obj = {
+          name: items.account_name,
+          data: items.data.map((item) => {
+            return item.value;
+          }),
+        };
+        return obj;
+      });
+    },
+    populateXdata() {
+      let Xlabel = this.filterdData.map((items) => {
+        let timeX = [];
+        items.data.map((item) => {
+          return timeX.push(
+            moment(item.dateTime)
+              .format("DD MMM")
+              .toString()
+          );
+        });
+        return timeX;
+      });
+      this.chartOptions = {
+        ...this.chartOptions,
+        ...{
+          xaxis: {
+            categories: Xlabel[0],
+          },
+        },
+      };
+    },
+  },
+  mounted() {
+    this.populateData();
+    this.populateXdata();
+  },
+  watch: {
+    range: function() {
+      this.populateData();
+      this.populateXdata();
+    },
   },
 };
 </script>
